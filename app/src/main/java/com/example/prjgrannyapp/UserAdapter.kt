@@ -47,14 +47,14 @@ class UserAdapter :ListAdapter<User,UserAdapter.UserAdapter>(UserViewHolder())
             try{
                 val `in` = java.net.URL(imageUrl).openStream()
                 image = BitmapFactory.decodeStream(`in`)
-                Log.d("AddedNewUser", "Image in text " + imageUrl.toString())
+                Log.d("AddedNewUser", "Image in text $imageUrl")
                 handler.post {
                     Log.d("AddedNewUser", "Image Added")
                     imageView.setImageBitmap(image)
                 }
             }
             catch (e:java.lang.Exception){
-                Log.d("AddNewUser", "Error happened"+ e.toString())
+                Log.d("AddNewUser", "Error happened $e")
                 e.printStackTrace()
             }
         }

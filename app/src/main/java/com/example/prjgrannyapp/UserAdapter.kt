@@ -33,40 +33,41 @@ class UserAdapter :ListAdapter<User,UserAdapter.UserAdapter>(UserViewHolder())
     override fun onBindViewHolder(holder: UserAdapter,position: Int)
     {
         val user = getItem(position)
-        holder.itemView.findViewById<TextView>(R.id.txtUserUsername).text = user.name
-        holder.itemView.findViewById<TextView>(R.id.txtUserPassword).text = user.password
-
-        // Declaring the executor to parse the url
+        holder.itemView.findViewById<TextView>(R.id.txtNameUser).text = user.name
+        holder.itemView.findViewById<TextView>(R.id.txtPasswordUser).text = user.password
+        //Declaring executor to parse the url
         val executor = Executors.newSingleThreadExecutor()
         val handler = Handler(Looper.getMainLooper())
-        //setting up the image
+        //Setting up the image
         var image: Bitmap?=null
-        val imageView = holder.itemView.findViewById<ImageView>(R.id.imgUserProfilePicture)
-        executor.execute{
-            val imageUrl = user.imageURL
-            try{
-                val `in` = java.net.URL(imageUrl).openStream()
+        val imageView = holder.itemView.findViewById<ImageView>(R.id.imPP)
+        executor.execute {
+            val imageURL = user.imageURL
+
+            try {
+                val `in` = java.net.URL(imageURL).openStream()
                 image = BitmapFactory.decodeStream(`in`)
-                Log.d("AddedNewUser", "Image in text $imageUrl")
+                Log.d("AddednewUser","Image in text "+imageURL.toString())
                 handler.post {
-                    Log.d("AddedNewUser", "Image Added")
+                    Log.d("AddedNewUser","Image Added")
                     imageView.setImageBitmap(image)
                 }
             }
-            catch (e:java.lang.Exception){
-                Log.d("AddNewUser", "Error happened $e")
+            catch (e:java.lang.Exception)
+            {
+                Log.d("AddNewUser","Error happened ..."+e.toString())
                 e.printStackTrace()
             }
         }
     }
 }
-class UserViewHolder : DiffUtil.ItemCallback<User>()
+class UserViewHolder :DiffUtil.ItemCallback<User>()
 {
     override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
         return oldItem.name == newItem.name
     }
 
     override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
-        return areItemsTheSame(oldItem, newItem)
+        return areItemsTheSame(oldItem,newItem)
     }
 }

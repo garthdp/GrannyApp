@@ -13,6 +13,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import java.util.concurrent.Executors
 
 class Welcome : AppCompatActivity() {
@@ -27,7 +29,7 @@ class Welcome : AppCompatActivity() {
             insets
         }
         var image: Bitmap? = null
-        val imgOutput : ImageView = findViewById(R.id.imgWelcome)
+        val imgOutput : ImageView = findViewById(R.id.imWelcome)
         val txtWelcomeMessage : TextView = findViewById(R.id.txtWelcome)
         val handler = Handler(Looper.getMainLooper())
         val executor = Executors.newSingleThreadExecutor()
@@ -51,6 +53,16 @@ class Welcome : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
+
+        val feed : RecyclerView = findViewById(R.id.recyclerView)
+
+        var userAdapter : UserAdapter
+        userAdapter = UserAdapter()
+        feed.apply{
+            layoutManager = LinearLayoutManager(this@Welcome)
+            adapter=userAdapter
+        }
+        userAdapter.submitList(arrUsers)
 
     }
 }

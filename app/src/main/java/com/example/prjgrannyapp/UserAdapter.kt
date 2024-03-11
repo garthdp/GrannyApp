@@ -36,7 +36,7 @@ class UserAdapter :ListAdapter<User,UserAdapter.UserAdapter>(UserViewHolder())
         holder.itemView.findViewById<TextView>(R.id.txtUserUsername).text = user.name
         holder.itemView.findViewById<TextView>(R.id.txtUserPassword).text = user.password
 
-        // Declairing the executer to parse the url
+        // Declaring the executor to parse the url
         val executor = Executors.newSingleThreadExecutor()
         val handler = Handler(Looper.getMainLooper())
         //setting up the image
